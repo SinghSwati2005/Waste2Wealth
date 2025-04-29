@@ -1,0 +1,19 @@
+/* Ensuring the body background is transparent, but content will remain visible */
+body {
+  background-color: transparent;
+}
+
+.fixed {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  z-index: 9999;
+  pointer-events: auto; /* Ensures that the chatbot is interactive */
+  width: 300px;
+  height: 400px;
+}
+
+iframe {
+  border: none;
+  background-color: transparent;
+}
