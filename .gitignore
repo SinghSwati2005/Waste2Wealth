@@ -1,0 +1,26 @@
+# Ignore environment files
+.env
+frontend/.env
+backend/.env
+
+# Node modules
+node_modules/
+frontend/node_modules/
+backend/node_modules/
+
+# Build folders
+build/
+frontend/build/
+backend/build/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS system files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
