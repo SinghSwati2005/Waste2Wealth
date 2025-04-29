@@ -23,7 +23,7 @@ export default function Farmer() {
   useEffect(() => {
     const fetchListings = async () => {
       try {
-        const  response  = await axios.get('http://localhost:8080/api/product/all');
+        const  response  = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/product/all`);
         if (response.data) setListings(response.data);
       } catch (error) {
         console.error('Error fetching listings:', error);
@@ -32,7 +32,7 @@ export default function Farmer() {
   const fetchSentApplications = async () => {
     try {
       if (user?._id) {
-        const response = await axios.get(`http://localhost:8080/api/application/farmer/${user._id}`);
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/application/farmer/${user._id}`);
         if (response.data) setSentApplications(response.data);
       }
     } catch (error) {

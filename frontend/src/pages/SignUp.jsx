@@ -42,7 +42,7 @@ const SignUp = () => {
       description :data.description // Ensure role is either 'FARMER' or 'INDUSTRY'
     };
 
-    const response = await fetch('http://localhost:8080/api/signup', {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/signup`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(requestData),

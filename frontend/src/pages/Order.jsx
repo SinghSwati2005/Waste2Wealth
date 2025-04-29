@@ -38,7 +38,7 @@ const Order = () => {
     useEffect(() => {
       const fetchIndustries = async () => {
         try {
-          const response = await axios.get("http://localhost:8080/api/industries");
+          const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/industries`);
           if (response.data) {
             console.log(response.data);
             setIndustry(response.data);
@@ -116,7 +116,7 @@ const submitProductDetails = async () => {
   };
 
   try {
-    const response = await axios.post('http://localhost:8080/api/product/submit-product', formData, {
+    const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/product/submit-product`, formData, {
       headers: {
         "Content-Type": "application/json",
       },

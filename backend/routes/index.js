@@ -9,7 +9,7 @@ const userSignInController = require('../controller/userSignin')
 
 const userDetailController = require('../controller/userDetail')
 const userLogout = require('../controller/userLogout')
-const authToken = require('../middleware/authtoken')
+
 
 const {  submitProduct } = require('../controller/sellController')
 
@@ -27,6 +27,7 @@ const { Uplaod, getAllListings } = require('../controller/UploadProduct')
 const Listing = require('../models/Listing')
 const addToCartController = require('../controller/addToCartController')
 const getCartItems = require('../controller/getCartController')
+const authToken = require('../middleware/authToken')
 
 
 

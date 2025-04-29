@@ -15,7 +15,7 @@ const Header = () => {
 
   const handleLogout = async () => {
     try {
-      await fetch("http://localhost:8080/api/userLogout", {
+      await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/userLogout`, {
         method: "GET",
         credentials: "include", // Important for cookie handling
       });

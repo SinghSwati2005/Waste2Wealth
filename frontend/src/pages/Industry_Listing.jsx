@@ -8,7 +8,7 @@ const Listing = () => {
 
   useEffect(() => {
     // Fetch products from the local backend
-    axios.get('http://localhost:8080/api/product-industry/allindustry') // Ensure this is your correct endpoint
+    axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/product-industry/allindustry`) // Ensure this is your correct endpoint
       .then((res) => {
         setProducts(res.data);
       })

@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux';
 import { io } from 'socket.io-client';
 import { toast } from 'react-toastify';
 
-const socket = io('http://localhost:8080');
+const socket = io(`${process.env.REACT_APP_BACKEND_URL}`);
 
 export default function Industry({ industryId }) {
   const [farmersData, setFarmersData] = useState([]);
@@ -26,7 +26,7 @@ export default function Industry({ industryId }) {
   useEffect(() => {
     const fetchListings = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/product-industry/allindustry');
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/product-industry/allindustry`);
         if (response.data) setListings(response.data);
       } catch (error) {
         console.error('Error fetching listings:', error);
@@ -63,7 +63,7 @@ export default function Industry({ industryId }) {
 
   const handleOrderSubmit = async (orderData) => {
     try {
-      const response = await axios.post(`http://localhost:8080/api/industry-orders/${user?._id}`, orderData);
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/industry-orders/${user?._id}`, orderData);
       if (response.status === 201) {
         socket.emit('newOrderSubmission', response.data);
         toast.success("Order submitted successfully!");

@@ -33,7 +33,7 @@ const Cart = () => {
   const handleCheckout = async () => {
     const stripe = await stripePromise;
 
-    const res = await axios.post("http://localhost:8080/api/payment/create-checkout-session", {
+    const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/payment/create-checkout-session`, {
       cartItems,
     });
 

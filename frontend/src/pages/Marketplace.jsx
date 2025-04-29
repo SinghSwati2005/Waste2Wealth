@@ -42,7 +42,7 @@ export default function Marketplace() {
 
   const fetchListings = async () => {
     try {
-      const res = await fetch("http://localhost:8080/api/listings");
+      const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/listings`);
       const data = await res.json();
       setListings(data);
       setFilteredListings(data);
@@ -54,7 +54,7 @@ export default function Marketplace() {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:8080/api/listings", {
+      const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/listings`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -110,7 +110,7 @@ export default function Marketplace() {
     const token = localStorage.getItem("token");
     console.log("Token being sent:", token);
 
-    const response = await fetch("http://localhost:8080/api/addToCart", {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/addToCart`, {
       method: "POST",
       credentials: "include", // 🔥 Important!
       headers: {

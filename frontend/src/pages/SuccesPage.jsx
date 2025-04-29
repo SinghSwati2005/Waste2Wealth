@@ -10,7 +10,7 @@ export default function PaymentSuccessPage() {
 
   useEffect(() => {
     if (sessionId) {
-      axios.get(`http://localhost:8080/api/payment/transaction/${sessionId}`)
+      axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/payment/transaction/${sessionId}`)
         .then(res => setTransaction(res.data))
         .catch(err => console.error(err));
     }
