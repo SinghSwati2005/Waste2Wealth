@@ -2,6 +2,38 @@ const express = require('express');
 const router = express.Router();
 const Stripe = require('stripe');
 const stripe = Stripe(process.env.sk_test_Your_Secret_Key); // Replace with your secret key
+const nodemailer = require('nodemailer');
+
+//email 
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER,  // youremail@gmail.com
+    pass: process.env.EMAIL_PASS   // Gmail app password
+  }
+});
+
+const sendDummyEmail = async (to, transactionId) => {
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to,
+    subject: '🧾 Your Payment Receipt (Dummy)',
+    html: `
+      <h3>Thank you for your payment!</h3>
+      <p>This is a dummy email confirming your payment with Transaction ID: <strong>${transactionId}</strong>.</p>
+      <p>We're always here to help!</p>
+    `
+  };
+  await transporter.sendMail(mailOptions);
+};
+
+
+
+
+
+
+
+
 
 router.post('/create-checkout-session', async (req, res) => {
   const { cartItems } = req.body;
@@ -46,6 +78,12 @@ router.get('/transaction/:sessionId', async (req, res) => {
       payment_status: session.payment_status,
       created: session.created,
     });
+     // 👇 Send dummy email if email is found
+     if (session.customer_email) {
+      await sendDummyEmail(session.customer_email, session.id);
+    }
+
+  
   } catch (err) {
     console.error('Stripe fetch error:', err);
     res.status(500).json({ error: 'Unable to fetch transaction' });

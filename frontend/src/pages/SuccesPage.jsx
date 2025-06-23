@@ -2,11 +2,32 @@ import { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 import { motion } from 'framer-motion';
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function PaymentSuccessPage() {
   const [searchParams] = useSearchParams();
   const sessionId = searchParams.get('session_id');
   const [transaction, setTransaction] = useState(null);
+
+  const [toastShown, setToastShown] = useState(false);
+
+  useEffect(() => {
+    if (sessionId) {
+      axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/payment/transaction/${sessionId}`)
+        .then(res => {
+          setTransaction(res.data);
+  
+          if (!toastShown) {
+            toast.success('📧 Email sent successfully!');
+            setToastShown(true);
+          }
+        })
+        .catch(err => console.error(err));
+    }
+  }, [sessionId, toastShown]);
+  
+
+
 
   useEffect(() => {
     if (sessionId) {
@@ -18,7 +39,8 @@ export default function PaymentSuccessPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-white to-blue-100 p-6 font-sans">
-      
+     <Toaster position="top-center" />
+ 
 
      
 

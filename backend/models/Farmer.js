@@ -1,22 +1,4 @@
-// const mongoose = require('mongoose');
 
-// const appliedProductSchema = new mongoose.Schema({
-//   industryName: String,
-//   cropType: String,
-//   quantity: String,
-//   price: String,
-//   image: String,
-//   date: { type: Date, default: Date.now }
-// });
-
-// const farmerSchema = new mongoose.Schema({
-//   name: String,
-//   aadhaar: String,
-//   phone: String,
-//   appliedProducts: [appliedProductSchema]
-// });
-
-// module.exports = mongoose.model('Farmer', farmerSchema);
 const mongoose = require('mongoose');
 
 const farmerSchema = new mongoose.Schema({

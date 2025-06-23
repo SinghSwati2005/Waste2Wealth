@@ -10,6 +10,7 @@ const ListingCard = ({ listing }) => {
       <p>Seller: {listing.seller}</p>
       <p>Location: {listing.location}</p>
       <p className="text-sm text-gray-500">{listing.tag}</p>
+      <p className="text-sm text-gray-500">{listing.baseBidValue}</p>
     </div>
   );
 };

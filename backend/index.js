@@ -41,6 +41,8 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 require('dotenv').config();
 const connectDB = require('./config/db');
+require("./auctionScheduler");
+
 
 // Route imports
 const router = require('./routes');
@@ -50,6 +52,7 @@ const listing = require("./routes/listing");
 const cartRoutes = require('./routes/cartRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
 const transactions = require('./routes/transactions');
+const bidRoutes = require("./routes/BidRoutes");
 
 const app = express();
 const http = require('http').createServer(app);
@@ -73,6 +76,10 @@ app.use('/api/payment', paymentRoutes);
 app.use('/api/transaction', transactions);
 app.use('/api/industries', require('./routes/industries'));
 app.use('/api/farmers', require('./routes/Farmers'));
+app.use("/api", bidRoutes);
+
+
+
 
 
 // Socket.IO Server

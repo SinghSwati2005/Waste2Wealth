@@ -30,7 +30,7 @@ function App() {
       if (data.success) {
         dispatch(setUserDetails(data.data));
       } else {
-        navigate('/login');
+        navigate('/');
       }
     } catch (err) {
       console.error('User fetch error:', err);

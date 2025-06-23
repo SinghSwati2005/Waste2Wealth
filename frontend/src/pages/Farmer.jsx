@@ -108,7 +108,7 @@ export default function Farmer() {
         <Card>
           <CardContent className="p-4 overflow-x-auto">
             <h2 className="text-lg font-semibold mb-4">Sent Applications</h2>
-            {sentApplications.length > 0 ? (
+           
               <table className="w-full text-sm">
                 <thead>
                   <tr className="text-left">
@@ -119,23 +119,9 @@ export default function Farmer() {
                     <th>Date Sent</th>
                   </tr>
                 </thead>
-                <tbody>
-                  {sentApplications.map((app) => (
-                    <tr key={app._id} className="border-t">
-                      <td>{app.industryName}</td>
-                      <td>{app.cropType}</td>
-                      <td>{app.quantity} tons</td>
-                      <td className={app.status === 'Sent' ? 'text-blue-600' : 'text-green-600'}>
-                        {app.status}
-                      </td>
-                      <td>{new Date(app.createdAt).toLocaleDateString()}</td>
-                    </tr>
-                  ))}
-                </tbody>
+              
               </table>
-            ) : (
-              <p className="text-sm text-muted-foreground">No sent applications yet.</p>
-            )}
+           
           </CardContent>
         </Card>
         {/* Bottom Summary Cards */}
@@ -266,7 +252,15 @@ const ActiveBuyerRequestsCard = () => (
           <div key={index}>
             <p>{buyer.company} wants {buyer.quantity} tons @ ₹{buyer.price}/ton</p>
             <a
-              href={`https://wa.me/${buyer.phone}?text=Hello%2C%20I'm%20interested%20in%20your%20request%20for%20${buyer.quantity}%20tons%20at%20₹${buyer.price}%2Fton`}
+              href={`https://wa.me/${buyer.phone}?text=Hello%2C%20I'm%20interested%20in%20your%20request%20for%20${buyer.quantity}%20tons%20at%20₹${buyer.price}%2Fton Before we proceed, here are my details as per your requirement:
+
+1. I will send a copy of my bank passbook showing account details and holder's name.
+2. I will also provide my full address for shipping and documentation.
+3. The product (agricultural waste) is fresh and recently collected.
+4. The mentioned quantity is accurate and ready for pickup.
+5. I confirm the waste is free from any chemical contamination or plastic.
+
+Kindly let me know the next steps.`}
               target="_blank"
               rel="noopener noreferrer"
             >

@@ -42,6 +42,7 @@ const Login = () => {
         } else {
           toast.error("Invalid role received");
         }
+         window.location.reload(); 
       } else {
         toast.error(result.message);
       }

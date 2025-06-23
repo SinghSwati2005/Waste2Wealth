@@ -20,7 +20,7 @@ const Cart = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-
+        console.log("Cart data response:", res.data); 
         setCartItems(res.data);
       } catch (err) {
         setError("Failed to fetch cart items. Please log in again.");
@@ -61,6 +61,7 @@ const Cart = () => {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {cartItems.map((item, index) => (
+            
             <div key={index} className="bg-white p-4 rounded shadow-md flex flex-col sm:flex-row gap-4">
               <img
                 src={item.listingId.image}

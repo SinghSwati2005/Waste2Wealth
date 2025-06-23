@@ -113,8 +113,11 @@ router.get("/:industryId", async (req, res) => {
     const { industryId } = req.params;
 
     // Fetch applications for the specific industry
-    const applications = await productforIndustry.find({ industryId });
-
+    // const applications = await productforIndustry.find({ industryId });
+//added extra now only
+const applications = await productforIndustry
+  .find({ industryId })
+  .populate("farmerId", "name agriWaste description image");
     if (applications.length === 0) {
       return res.status(404).json({ message: "No applications found for this industry" });
     }

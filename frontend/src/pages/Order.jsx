@@ -6,11 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import { toast } from 'react-toastify';
 
-// const industriesData = [
-//   { id: 1, name: "GreenFuel Pvt Ltd", requiredCrop: "Sugarcane Waste", description: "Looking for sugarcane waste for biofuel production." },
-//   { id: 2, name: "BioPack Industries", requiredCrop: "Banana Fiber", description: "Need banana stems for making eco-friendly packaging." },
-//   { id: 3, name: "AgriPlast Co.", requiredCrop: "Corn Husk", description: "Corn husk required for biodegradable plastic development." }
-// ];
+
 
 const languageOptions = [
   { code: 'en-IN', label: 'English' },

@@ -26,24 +26,41 @@ async function userSignInController(req, res) {
     const token = jwt.sign(
       { _id: user._id, role: user.role, email: user.email, name: user.name },
       process.env.TOKEN_SECRET_KEY,
-      { expiresIn: "1d" }
+      { expiresIn: "4d" }
     );
     
 
-    // Set token and role in cookies
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // true in production
-      sameSite: "strict",
-      maxAge: 24 * 60 * 60 * 1000, // 1 day
-    });
+    // // Set token and role in cookies
+    // res.cookie("token", token, {
+    //   httpOnly: true,
+    //   secure: process.env.NODE_ENV === "production", // true in production
+    //   sameSite: "strict",
+    //   maxAge: 24 * 60 * 60 * 1000, // 1 day
+    // });
 
-    res.cookie("role", user.role, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // true in production
-      sameSite: "strict",
-      maxAge: 24 * 60 * 60 * 1000, // 1 day
-    });
+    // res.cookie("role", user.role, {
+    //   httpOnly: true,
+    //   secure: process.env.NODE_ENV === "production", // true in production
+    //   sameSite: "strict",
+    //   maxAge: 24 * 60 * 60 * 1000, // 1 day
+    // });
+
+// Set token and role in cookies
+res.cookie("token", token, {
+  httpOnly: true,
+  secure: true,              // ✅ Always true in production (must be on HTTPS)
+  sameSite: "None",          // ✅ To allow frontend (e.g. Netlify) to receive the cookie from a different domain
+  maxAge: 4 * 24 * 60 * 60 * 1000, // 4 days (matches your JWT expiry)
+});
+
+res.cookie("role", user.role, {
+  httpOnly: true,
+  secure: true,
+  sameSite: "None",
+  maxAge: 4 * 24 * 60 * 60 * 1000,
+});
+
+
 
     // Send the response
     res.status(200).json({

@@ -4,7 +4,7 @@ import { Card, CardContent, Button } from '../components/ui/CustomUI';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { CalendarDays } from 'lucide-react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Sidebar_industry from '../components/Sidebar_industry';
 import { useSelector } from 'react-redux';
@@ -92,9 +92,7 @@ export default function Industry({ industryId }) {
         <div className="grid grid-cols-4 gap-4">
           <Card><CardContent className="p-4"><h2 className="font-medium mb-2">Sales Summary</h2><ul className="space-y-1 text-sm"><li>Wheat Straw (45%)</li><li>Rice Husk (30%)</li><li>Bagasse (25%)</li></ul></CardContent></Card>
 
-          <Card><CardContent className="p-4"><h2 className="font-medium mb-2">AI Price Suggestion</h2><p className="text-2xl font-bold text-green-600">₹2,500/ton</p><p className="text-xs text-muted-foreground">Based on current market trends</p></CardContent></Card>
-
-          <Card><CardContent className="p-4 space-y-2"><div className="flex items-center space-x-2"><CalendarDays size={20} /><h2 className="font-medium">Select Date</h2></div><DatePicker selected={selectedDate} onChange={(date) => setSelectedDate(date)} className="mt-2 w-full px-3 py-2 border rounded-md text-sm" dateFormat="dd MMMM yyyy" /></CardContent></Card>
+            <Card><CardContent className="p-4 space-y-2"><div className="flex items-center space-x-2"><CalendarDays size={20} /><h2 className="font-medium">Select Date</h2></div><DatePicker selected={selectedDate} onChange={(date) => setSelectedDate(date)} className="mt-2 w-full px-3 py-2 border rounded-md text-sm" dateFormat="dd MMMM yyyy" /></CardContent></Card>
 
           <Card><CardContent className="p-4"><h2 className="font-medium mb-1">Details</h2><p className="text-xs text-muted-foreground">Description panel for waste items and status.</p></CardContent></Card>
         </div>
@@ -142,23 +140,7 @@ export default function Industry({ industryId }) {
                   </tr>
                 ))}
               </tbody>
-              {/* <tbody>
-          {applications.length > 0 ? (
-            applications.map((app) => (
-              <tr key={app._id}>
-                <td>{app.farmerName}</td>
-                <td>{app.agriWaste.join(', ')}</td>
-                <td>{app.quantity}</td>
-                <td>{app.price}</td>
-                <td>{app.status}</td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="5">No applications found</td>
-            </tr>
-          )}
-        </tbody> */}
+            
             </table>
           </CardContent>
         </Card>
@@ -182,29 +164,59 @@ export default function Industry({ industryId }) {
             </CardContent>
           </Card>
 
-          <Card>
-            <CardContent className="p-4 space-y-2">
-              <h2 className="font-semibold">Active Buyer Requests</h2>
-              <div className="text-sm">
-                Green Energy Co. wants 200 tons @ ₹1,150/ton
-                <Button className="mt-2 w-full">Respond</Button>
-              </div>
-              <div className="text-sm">
-                Bio Solutions Ltd. wants 150 tons @ ₹900/ton
-                <Button className="mt-2 w-full bg-yellow-500 hover:bg-yellow-600">Continue Chat</Button>
-              </div>
-              <div className="text-sm">
-                Eco Fuels Inc. wants 100 tons @ ₹850/ton
-                <Button className="mt-2 w-full">Respond</Button>
-              </div>
-            </CardContent>
-          </Card>
+           <Card>
+              <CardContent className="p-4 space-y-4">
+                <h2 className="text-lg font-semibold">Active Buyer Requests</h2>
+                <div className="text-sm space-y-4">
+                  {[
+                    {
+                      company: 'Green Energy Co.',
+                      quantity: 200,
+                      price: 1150,
+                      phone: '919038593493',
+                    },
+                    {
+                      company: 'Bio Solutions Ltd.',
+                      quantity: 150,
+                      price: 900,
+                      phone: '917439132206',
+                    },
+                    {
+                      company: 'Eco Fuels Inc.',
+                      quantity: 100,
+                      price: 850,
+                      phone: '919749611551',
+                    },
+                  ].map((buyer, index) => (
+                    <div key={index}>
+                      <p>{buyer.company} wants {buyer.quantity} tons @ ₹{buyer.price}/ton</p>
+                      <a
+                        href={`https://wa.me/${buyer.phone}?text=Hello%2C%20I'm%20interested%20in%20your%20request%20for%20${buyer.quantity}%20tons%20at%20₹${buyer.price}%2Fton Before we proceed, here are my details as per your requirement:
+
+1. I will send a copy of my bank passbook showing account details and holder's name.
+2. I will also provide my full address for shipping and documentation.
+3. The product (agricultural waste) is fresh and recently collected.
+4. The mentioned quantity is accurate and ready for pickup.
+5. I confirm the waste is free from any chemical contamination or plastic.
+
+Kindly let me know the next steps.`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Button className="mt-2 w-full bg-green-500 hover:bg-green-600">
+                          Chat on WhatsApp
+                        </Button>
+                      </a>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
         </div>
 
         <Card>
           <CardContent className="p-4">
-            <h2 className="font-semibold mb-2">Logistics Map</h2>
-            <img src="/map-placeholder.jpg" alt="Logistics Map" className="rounded-lg border border-gray-300" />
+           <Link to={"/logistics"} className='p-4 bg-blue-600 text-white hover:bg-yellow-200 hover:text-red-700 font-bold text-xl border rounded-lg'>Need Transport --Click Here</Link>
           </CardContent>
         </Card>
       </main>

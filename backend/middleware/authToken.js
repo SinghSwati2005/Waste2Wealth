@@ -64,8 +64,11 @@ async function authToken(req, res, next) {
         });
       }
 
+
       req.userId = decoded._id; // Assign decoded user ID to request object
       req.role = decoded.role;   // Assign role (if available)
+
+ 
 
       // Continue to the next middleware
       next();
