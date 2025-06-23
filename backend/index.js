@@ -52,7 +52,7 @@ const listing = require("./routes/listing");
 const cartRoutes = require('./routes/cartRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
 const transactions = require('./routes/transactions');
-const bidRoutes = require("./routes/BidRoutes");
+const bidRoutes = require("./routes/bidRoutes");
 
 const app = express();
 const http = require('http').createServer(app);
