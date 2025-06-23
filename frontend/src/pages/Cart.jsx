@@ -14,7 +14,7 @@ const Cart = () => {
       try {
         const token = localStorage.getItem("authToken");
 
-        const res = await axios.get("http://localhost:8080/api/addToCart", {
+        const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/addToCart`, {
           withCredentials: true,
           headers: {
             Authorization: `Bearer ${token}`,
