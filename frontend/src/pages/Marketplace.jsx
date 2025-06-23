@@ -464,27 +464,64 @@ const [timeTick, setTimeTick] = useState(Date.now());
     }
   };
 
-  const handleFormSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/listings`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+  // const handleFormSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/listings`, {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify(formData),
+  //     });
 
-      if (res.ok) {
-        setFormData({
-          title: "", description: "", image: "", price: "", quantity: "",
-          seller: "", location: "", tag: "",baseBidValue:"",
-        });
-        setShowForm(false);
-        fetchListings();
-      }
-    } catch (error) {
-      console.error("Error submitting listing:", error);
-    }
+  //     if (res.ok) {
+  //       setFormData({
+  //         title: "", description: "", image: "", price: "", quantity: "",
+  //         seller: "", location: "", tag: "",baseBidValue:"",
+  //       });
+  //       setShowForm(false);
+  //       fetchListings();
+  //     }
+  //   } catch (error) {
+  //     console.error("Error submitting listing:", error);
+  //   }
+  // };
+
+
+  const handleFormSubmit = async (e) => {
+  e.preventDefault();
+
+  const cleanedFormData = {
+    ...formData,
+    price: parseFloat(formData.price),
+    quantity: parseInt(formData.quantity),
+    baseBidValue: parseFloat(formData.baseBidValue),
+    seller: user?._id,  // Inject logged-in user ID
   };
+
+  try {
+    const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/listings`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(cleanedFormData),
+    });
+
+    if (res.ok) {
+      toast.success("Listing created successfully");
+      setFormData({
+        title: "", description: "", image: "", price: "", quantity: "",
+        seller: "", location: "", tag: "", baseBidValue: "",
+      });
+      setShowForm(false);
+      fetchListings();
+    } else {
+      const err = await res.json();
+      toast.error(err.error || "Failed to create listing.");
+    }
+  } catch (error) {
+    console.error("Error submitting listing:", error);
+    toast.error("Something went wrong!");
+  }
+};
 
 
   const applyFilters = () => {
