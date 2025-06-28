@@ -38,6 +38,7 @@ const Header = () => {
   const farmerMenuItems = [
     { name: "Farmer Dashboard", path: "/farmer-dashboard" },
     { name: "AI Insights", path: "/ai-insights" },
+    { name: "AI Image", path: "/ai-image" },
     { name: "Government Schemes", path: "/schemes" },
   ];
 
@@ -67,7 +68,7 @@ const Header = () => {
       <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
         {/* Logo */}
         <Link to="/" className="text-2xl font-bold text-green-400">
-          Waste2Wealth
+         KrishiSetu 🌿
         </Link>
 
         {/* Desktop Menu */}

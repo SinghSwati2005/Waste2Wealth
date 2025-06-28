@@ -19,7 +19,7 @@ const Sidebar = () => {
 
   return (
     <aside className="w-64 bg-[#0f3d2e] text-white p-4 space-y-6">
-      <div className="text-2xl font-bold tracking-wide">🌿 W2W</div>
+      <div className="text-2xl font-bold tracking-wide">🌿KrishiSetu</div>
       <nav className="flex flex-col space-y-4">
         {menuItems.map(({ label, path }) => (
           <button

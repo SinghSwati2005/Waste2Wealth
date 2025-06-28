@@ -15,10 +15,13 @@ import GovSchemes from '../pages/GovSchemes';
 import Cart from '../pages/Cart';
 import Contact from '../pages/Contact';
 import AI from '../pages/AI';
+
+
 import SuccessPage from '../pages/SuccesPage';
 import Logistics from '../pages/Logistics';
 import AnalyticsDashboard from '../pages/Analytics';
 import FarmerOrderTracking from '../pages/FarmerOrderTrack';
+import ImageClassifier from '../pages/ImageClassifier';
 
 
 
@@ -82,6 +85,10 @@ const router = createBrowserRouter([
             {
                 path: "ai-insights",
                 element: <AI />
+            },
+            {
+                path: "ai-image",
+                element: <ImageClassifier/>
             },
             {
                 path: "success",

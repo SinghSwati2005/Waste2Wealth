@@ -80,6 +80,7 @@ app.use("/api", bidRoutes);
 app.use('/api/analytics', require('./routes/analytics'));
 const OrderRoutes = require('./routes/OrderRoutes');
 app.use('/api/orders', OrderRoutes);
+// app.use('/api/product', OrderRoutes)
 
 
 
