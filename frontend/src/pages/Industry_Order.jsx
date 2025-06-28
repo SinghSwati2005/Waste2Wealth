@@ -241,6 +241,7 @@ import SummaryApi from '../common';
 import { useNavigate } from 'react-router-dom';
 import Sidebar_industry from '../components/Sidebar_industry';
 import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
 
 const IndustryOrder = () => {
   const navigate = useNavigate();
@@ -251,6 +252,7 @@ const IndustryOrder = () => {
   const [preview, setPreview] = useState(null);
   const [farmers, setFarmers] = useState([]);
   const [error, setError] = useState('');
+const user = useSelector((state) => state?.user?.user); 
 
   useEffect(() => {
     const fetchFarmers = async () => {
@@ -294,13 +296,22 @@ const IndustryOrder = () => {
       return toast.error("Please enter a valid quantity!");
     }
 
-    const formData = {
-      farmerName: selectedFarmer.name,
-      agriWaste: selectedFarmer.agriWaste,
-      quantity,
-      price,
-      image: preview,
-    };
+    // const formData = {
+    //   farmerName: selectedFarmer.name,
+    //   agriWaste: selectedFarmer.agriWaste,
+    //   quantity,
+    //   price,
+    //   image: preview,
+    // };
+const formData = {
+  industryId: user._id,
+  farmerId: selectedFarmer._id, // or selectedFarmer.id
+  farmerName: selectedFarmer.name,
+  agriWaste: selectedFarmer.agriWaste,
+  quantity,
+  price,
+  image: preview,
+};
 
     try {
       const response = await axios({

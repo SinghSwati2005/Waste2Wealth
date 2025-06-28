@@ -17,6 +17,8 @@ import Contact from '../pages/Contact';
 import AI from '../pages/AI';
 import SuccessPage from '../pages/SuccesPage';
 import Logistics from '../pages/Logistics';
+import AnalyticsDashboard from '../pages/Analytics';
+import FarmerOrderTracking from '../pages/FarmerOrderTrack';
 
 
 
@@ -88,6 +90,14 @@ const router = createBrowserRouter([
             {
                 path: "logistics",
                 element: <Logistics />
+            },
+            {
+                path: "analytics",
+                element: <AnalyticsDashboard />
+            },
+            {
+                path: "farmer-track-order",
+                element: <FarmerOrderTracking />
             },
 
             

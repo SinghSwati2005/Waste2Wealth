@@ -13,7 +13,7 @@ const userLogout = require('../controller/userLogout')
 
 const {  submitProduct } = require('../controller/sellController')
 
-const productRoutes = require('./productRoutes');
+ const productRoutes = require('./productRoutes');
 const productforindustryroute = require('./productforindustryroute');
 const cartRoutes = require('./cartRoutes');
 const industries = require('./industries');
@@ -43,8 +43,8 @@ router.post("/sell", submitProduct);
 router.post("/upload", Uplaod); 
 router.get("/upload", getAllListings);
 router.post("/buy", submitProductIndustry); 
-router.use('/api/product', productRoutes); 
-router.use('/api/product-industry', productforindustryroute); 
+ router.use('/api/product', productRoutes); 
+ router.use('/api/product-industry', productforindustryroute); 
 router.use('/api/cart', cartRoutes);
 router.use('/api/industries', industries);
 router.use('/api/farmers', Farmers);

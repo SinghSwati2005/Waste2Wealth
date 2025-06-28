@@ -11,9 +11,9 @@ const Sidebar = () => {
     { label: 'Dashboard', path: '/farmer-dashboard' },
     { label: 'Listings', path: '/lists-farmer' },
     { label: 'Sell Waste', path: '/orders-farmer' },
-    { label: 'Payments', path: '/' },
+    { label: 'Payments', path: '/farmer-track-order' },
     { label: 'Messages', path: '/' },
-    { label: 'Analytics', path: '/' },
+    { label: 'Analytics', path: '/analytics' },
     { label: 'Settings', path: '/' },
   ];
 

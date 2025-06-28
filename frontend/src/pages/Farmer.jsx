@@ -16,36 +16,73 @@ export default function Farmer() {
   const [userName, setUserName] = useState('');
   const user = useSelector((state) => state?.user?.user);
   const [sentApplications, setSentApplications] = useState([]);
+const [receivedApplicationsFromIndustry, setReceivedApplicationsFromIndustry] = useState([]);
 
 
   
   // Fetch listings and user info
-  useEffect(() => {
-    const fetchListings = async () => {
-      try {
-        const  response  = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/product/all`);
-        if (response.data) setListings(response.data);
-      } catch (error) {
-        console.error('Error fetching listings:', error);
-      }
-    };
-  const fetchSentApplications = async () => {
+//   useEffect(() => {
+//     const fetchListings = async () => {
+//       try {
+//         const  response  = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/product/all`);
+//         if (response.data) setListings(response.data);
+//       } catch (error) {
+//         console.error('Error fetching listings:', error);
+//       }
+//     };
+//   const fetchSentApplications = async () => {
+//     try {
+//       if (user?._id) {
+//         const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/application/farmer/${user._id}`);
+//         if (response.data) setSentApplications(response.data);
+//       }
+//     } catch (error) {
+//       console.error('Error fetching sent applications:', error);
+//     }
+//   };
+  
+
+//   fetchListings();
+//   fetchSentApplications(); // Fetch sent applications
+//   if (user) {
+//     setUserName(user.name);
+//   }
+// }, [user]);
+
+
+
+useEffect(() => {
+  if (!user?._id) return;
+
+  const fetchOwnListings = async () => {
     try {
-      if (user?._id) {
-        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/application/farmer/${user._id}`);
-        if (response.data) setSentApplications(response.data);
-      }
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/api/product/all`
+      );
+      if (response.data) setListings(response.data);
     } catch (error) {
-      console.error('Error fetching sent applications:', error);
+      console.error("Error fetching own listings:", error);
     }
   };
 
-  fetchListings();
-  fetchSentApplications(); // Fetch sent applications
-  if (user) {
-    setUserName(user.name);
-  }
+  const fetchReceivedApplicationsFromIndustry = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/api/product-industry/farmer/${user._id}`
+      );
+      if (response.data) setReceivedApplicationsFromIndustry(response.data);
+    } catch (error) {
+      console.error("Error fetching received applications from industry:", error);
+    }
+  };
+
+  fetchOwnListings(); // ✅ Farmer's own listings
+  fetchReceivedApplicationsFromIndustry(); // ✅ Industry's interest
+
+  setUserName(user.name);
 }, [user]);
+
+
 
   return (
     <div className="flex min-h-screen bg-[#f9f9f6] dark:bg-[#121a13] text-[#1a1a1a] dark:text-white">
@@ -105,25 +142,36 @@ export default function Farmer() {
           </CardContent>
         </Card>
 
-        <Card>
-          <CardContent className="p-4 overflow-x-auto">
-            <h2 className="text-lg font-semibold mb-4">Sent Applications</h2>
-           
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="text-left">
-                    <th>Industry Name</th>
-                    <th>Waste Type</th>
-                    <th>Quantity</th>
-                    <th>Status</th>
-                    <th>Date Sent</th>
-                  </tr>
-                </thead>
-              
-              </table>
-           
-          </CardContent>
-        </Card>
+
+<Card>
+  <CardContent className="p-4 overflow-x-auto">
+    <h2 className="text-lg font-semibold mb-4">Received Applications from Industries</h2>
+    <table className="w-full text-sm">
+      <thead>
+        <tr className="text-left">
+          <th>Industry Name</th>
+          <th>Agri Waste</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {receivedApplicationsFromIndustry.map((application) => (
+          <tr key={application._id} className="border-t">
+            <td>{application.industryId}</td>
+            <td>{application.agriWaste}</td>
+            <td>{application.quantity} tons</td>
+            <td>₹{application.price}</td>
+            <td className="capitalize">{application.status || 'pending'}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </CardContent>
+</Card>
+
+        
         {/* Bottom Summary Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <RecentTransactionsCard />

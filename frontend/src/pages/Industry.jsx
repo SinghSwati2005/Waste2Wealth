@@ -21,20 +21,22 @@ export default function Industry({ industryId }) {
   const user = useSelector((state) => state?.user?.user);
   const navigate = useNavigate();
   const [applications, setApplications] = useState([]);
+const [userName, setUserName] = useState('');
+const [receivedApplicationsFromIndustry, setReceivedApplicationsFromIndustry] = useState([]);
 
 
-  useEffect(() => {
-    const fetchListings = async () => {
-      try {
-        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/product-industry/allindustry`);
-        if (response.data) setListings(response.data);
-      } catch (error) {
-        console.error('Error fetching listings:', error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchListings = async () => {
+  //     try {
+  //       const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/product-industry/allindustry`);
+  //       if (response.data) setListings(response.data);
+  //     } catch (error) {
+  //       console.error('Error fetching listings:', error);
+  //     }
+  //   };
 
-    fetchListings();
-  }, []);
+  //   fetchListings();
+  // }, []);
 
   // useEffect(() => {
   //   const fetchApplications = async () => {
@@ -50,6 +52,38 @@ export default function Industry({ industryId }) {
 
   //   fetchApplications();
   // }, [industryId]);
+
+
+  useEffect(() => {
+    if (!user?._id) return;
+  
+    const fetchOwnListings = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/api/product-industry/allindustry`
+        );
+        if (response.data) setListings(response.data);
+      } catch (error) {
+        console.error("Error fetching own listings:", error);
+      }
+    };
+  
+    const fetchReceivedApplicationsFromIndustry = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/api/product/industry/${user._id}`
+        );
+        if (response.data) setReceivedApplicationsFromIndustry(response.data);
+      } catch (error) {
+        console.error("Error fetching received applications from industry:", error);
+      }
+    };
+  
+    fetchOwnListings(); // ✅ Farmer's own listings
+    fetchReceivedApplicationsFromIndustry(); // ✅ Industry's interest
+  
+    setUserName(user.name);
+  }, [user]);
 
   useEffect(() => {
     socket.on('updateFarmerList', (newOrder) => {
@@ -141,6 +175,34 @@ export default function Industry({ industryId }) {
                 ))}
               </tbody>
             
+            </table>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent className="p-4 overflow-x-auto">
+            <h2 className="text-lg font-semibold mb-4">Received Applications from Industries</h2>
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="text-left">
+                  <th>Farmer Name</th>
+                  <th>Agri Waste</th>
+                  <th>Quantity</th>
+                  <th>Price</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {receivedApplicationsFromIndustry.map((application) => (
+                  <tr key={application._id} className="border-t">
+                    <td>{application.farmerId}</td>
+                    <td>{application.agriWaste}</td>
+                    <td>{application.quantity} tons</td>
+                    <td>₹{application.price}</td>
+                    <td className="capitalize">{application.status || 'pending'}</td>
+                  </tr>
+                ))}
+              </tbody>
             </table>
           </CardContent>
         </Card>

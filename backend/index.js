@@ -77,7 +77,9 @@ app.use('/api/transaction', transactions);
 app.use('/api/industries', require('./routes/industries'));
 app.use('/api/farmers', require('./routes/Farmers'));
 app.use("/api", bidRoutes);
-
+app.use('/api/analytics', require('./routes/analytics'));
+const OrderRoutes = require('./routes/OrderRoutes');
+app.use('/api/orders', OrderRoutes);
 
 
 

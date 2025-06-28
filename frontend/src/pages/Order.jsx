@@ -5,6 +5,7 @@ import SummaryApi from '../common'; // Adjust path as needed
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
 
 
 
@@ -28,7 +29,7 @@ const Order = () => {
   const [quantity, setQuantity] = useState('');
   const [price, setPrice] = useState('');
   const [image, setImage] = useState(null);
-    
+    const user = useSelector((state) => state?.user?.user); 
     const [industry, setIndustry] = useState([]);
     const [error, setError] = useState('');
     useEffect(() => {
@@ -103,13 +104,24 @@ const submitProductDetails = async () => {
     return toast.error("Please upload an image!");
   }
 
+  // const formData = {
+  //     farmerId: user._id, 
+  //   industryName: selectedIndustry.name,
+  //   agriWaste: selectedIndustry.agriWaste,
+  //   quantity,
+  //   price,
+  //   image: preview, // base64 image
+  // };
   const formData = {
-    industryName: selectedIndustry.name,
-    agriWaste: selectedIndustry.agriWaste,
-    quantity,
-    price,
-    image: preview, // base64 image
-  };
+  farmerId: user._id,
+  industryId: selectedIndustry._id, // <-- must be added
+  industryName: selectedIndustry.name, // optional, but good for display
+  agriWaste: selectedIndustry.agriWaste,
+  quantity,
+  price,
+  image: preview,
+};
+
 
   try {
     const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/product/submit-product`, formData, {

@@ -14,6 +14,9 @@ const submitProduct = async (req, res) => {
       quantity,
       price,
       image,
+      industryId,
+        farmerId,    // ✅ now added
+
     });
 
     await newProduct.save();
